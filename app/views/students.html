@@ -1,0 +1,62 @@
+<div>
+  <link rel="stylesheet" href="styleview.css" type="text/css" />  
+  
+  <h2>List of students</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Faculty</th>
+        <th>Group</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="student in students" ng-include="getTemplate(student)">
+
+      </tr>
+    </tbody>
+  </table>
+  <h2>Add an student</h2>
+  <form name="studentForm">
+    <label for="studentName">Name</label>
+    <input type="text" name="studentName" id="studentName" ng-model="student.name" />
+    
+    <label for="studentFaculty">Faculty</label>
+    <input type="text" name="studentFaculty" id="studentFaculty" ng-model="student.faculty" />
+    
+    <label for="studentGroup">Group</label>
+    <input type="text" name="studentGroup" id="studentGroup" ng-model="student.group" />
+    
+    <label for="studentEmail">Email</label>
+    <input type="text" name="studentEmail" id="studentEmail" ng-model="student.email" required />
+    
+    <input type="button" value="add" ng-click="addStudent(student)" />
+    <div ng-projects="studentForm.studentEmail.$error" style="color:tomato">
+      <div ng-project="required">Email is required</div>
+    </div>
+  </form>
+
+  <script type="text/ng-template" id="display">
+    <td>{{student.name}}</td>
+    <td>{{student.faculty}}</td>
+    <td>{{student.group}}</td>
+    <td>{{student.email}}</td>
+    <td>
+      <input type="button" value="del" ng-click="deleteStudent(student)" />
+      <input type="button" value="edit" ng-click="editStudent(student)" />
+      <a ui-sref="studentDetails({studentId : student.id})">details </a>
+    </td>
+  </script>
+  <script type="text/ng-template" id="edit">
+    <td><input type="text" ng-model="student.name"/></td>
+    <td><input type="text" ng-model="student.faculty"/></td>
+    <td><input type="text" ng-model="student.group"/></td>
+    <td><input type="text" ng-model="student.email"/></td>
+    <td>
+      <input type="button" value="save" ng-click="saveStudent(student)" />
+      <input type="button" value="edit" ng-click="cancelEditing()" />
+    </td>
+  </script>
+</div>
